@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cyber Security Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Courier New", monospace;
+}
+
+/* Full screen */
+body {
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+}
+
+/* Canvas */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Login Box */
+.login-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid #00ff9c;
+  box-shadow: 0 0 20px #00ff9c;
+  padding: 30px;
+  width: 340px;
+  text-align: center;
+  z-index: 10;
+}
+
+.login-box h2 {
+  color: #00ff9c;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px #00ff9c;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  background: black;
+  border: 1px solid #00ff9c;
+  color: #00ff9c;
+  outline: none;
+}
+
+.login-box input::placeholder {
+  color: #00ff9c88;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background: #00ff9c;
+  border: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.login-box button:hover {
+  background: black;
+  color: #00ff9c;
+  border: 1px solid #00ff9c;
+  box-shadow: 0 0 10px #00ff9c;
+}
+
+/* Footer text */
+.tagline {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #00ff9c88;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Matrix Canvas -->
+<canvas id="matrix"></canvas>
+
+<!-- Login Form -->
+<div class="login-box">
+  <h2>SECURE LOGIN</h2>
+  <input type="text" placeholder="Username" required>
+  <input type="password" placeholder="Password" required>
+  <button>ACCESS</button>
+  <div class="tagline">Cybersecurity Authentication</div>
+</div>
+
+<script>
+/* Matrix Hacker Animation */
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*";
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+
+const drops = [];
+for (let x = 0; x < columns; x++) {
+  drops[x] = Math.random() * canvas.height;
+}
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#00ff9c";
+  ctx.font = fontSize + "px Courier New";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+setInterval(drawMatrix, 33);
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>
